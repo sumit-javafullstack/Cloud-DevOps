@@ -17,23 +17,22 @@ pipeline {
         CONFIG_FILE = 'sdp.yml'
         }
       stages {
-             stage('Initialize') {
-                     steps {
-                         script {
-
-                              checkout scm
-                              // Read the properties file
-                              SDPYAML  = readYaml file: $CONFIG_FILE
-                              VERSION = SDPYAML.version
-                              ON_SUCCESS_EMAIL = SDPYAML.onSuccessEmail
-                              ON_FAILURE_EMAIL = SDPYAML.onFailureEmail
-                         }
-                     }
+         stage('Initialize') {
+            steps {
+                script {
+                    checkout scm
+                    // Read the properties file
+                    def props  = readYaml file: ${CONFIG_FILE}
+                    env.VERSION = props.version
+                    env.ON_SUCCESS_EMAIL = props.onSuccessEmail
+                    env.ON_FAILURE_EMAIL = props.onFailureEmail
+                    }
+                }
              }
              stage('Build') {
                 steps {
                     script {
-                        echo "Building version ${VERSION}"
+                        echo "Building version ${env.VERSION}"
                         sh 'mvn clean package'
                         }
                 }
