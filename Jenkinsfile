@@ -22,6 +22,8 @@ pipeline {
                 script {
                     checkout scm
                     // Read the properties file
+                    echo '25 ${CONFIG_FILE}'
+                    echo '26 ${env.CONFIG_FILE}'
                     def props  = readYaml file: '${CONFIG_FILE}'
                     env.VERSION = props.version
                     env.ON_SUCCESS_EMAIL = props.onSuccessEmail
