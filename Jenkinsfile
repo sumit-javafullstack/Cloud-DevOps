@@ -22,7 +22,7 @@ pipeline {
                 script {
                     checkout scm
                     // Read the properties file
-                    def props  = readYaml file: ${CONFIG_FILE}
+                    def props  = readYaml file: '${CONFIG_FILE}'
                     env.VERSION = props.version
                     env.ON_SUCCESS_EMAIL = props.onSuccessEmail
                     env.ON_FAILURE_EMAIL = props.onFailureEmail
@@ -32,7 +32,7 @@ pipeline {
              stage('Build') {
                 steps {
                     script {
-                        echo "Building version ${env.VERSION}"
+                        echo 'Building version ${env.VERSION}'
                         sh 'mvn clean package'
                         }
                 }
