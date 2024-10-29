@@ -14,17 +14,19 @@ pipeline {
                 maven 'M2_HOME' // Use gradle gitinstalled on the agent(jenkins server)
         }
     environment {
-        SDPYAML  = readYaml file: 'sdp.yml'
-        VERSION = SDPYAML.version
-        ON_SUCCESS_EMAIL = SDPYAML.onSuccessEmail
-        ON_FAILURE_EMAIL = SDPYAML.onFailureEmail
+        CONFIG_FILE = 'sdp.yml'
         }
       stages {
              stage('Initialize') {
                      steps {
                          script {
+
                               checkout scm
                               // Read the properties file
+                              SDPYAML  = readYaml file: $CONFIG_FILE
+                              VERSION = SDPYAML.version
+                              ON_SUCCESS_EMAIL = SDPYAML.onSuccessEmail
+                              ON_FAILURE_EMAIL = SDPYAML.onFailureEmail
                          }
                      }
              }
