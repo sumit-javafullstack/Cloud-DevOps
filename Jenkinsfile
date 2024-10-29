@@ -24,6 +24,7 @@ pipeline {
                     // Read the properties file
                     echo '25 ${CONFIG_FILE}'
                     echo '26 ${env.CONFIG_FILE}'
+                    echo ${CONFIG_FILE}
                     def props  = readYaml file: '${CONFIG_FILE}'
                     env.VERSION = props.version
                     env.ON_SUCCESS_EMAIL = props.onSuccessEmail
