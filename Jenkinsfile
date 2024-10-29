@@ -13,6 +13,12 @@ pipeline {
                 jdk 'JDK 1.17' // Use JDK 17 installed on the agent(jenkins server)
                 maven 'M2_HOME' // Use gradle gitinstalled on the agent(jenkins server)
         }
+    environment {
+        SDPYAML  = readYaml file: 'sdp.yml'
+        VERSION = SDPYAML.version
+        ON_SUCCESS_EMAIL = SDPYAML.onSuccessEmail
+        ON_FAILURE_EMAIL = SDPYAML.onFailureEmail
+        }
       stages {
              stage('Initialize') {
                      steps {
