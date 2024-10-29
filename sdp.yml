@@ -1,0 +1,3 @@
+version: 1.0.0-SNAPSHOT
+onFailureEmail: mesumitmandal@gmail.com
+onSuccessEmail: sumit06420@gmail.com
