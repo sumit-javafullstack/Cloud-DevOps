@@ -15,7 +15,7 @@ pipeline {
         }
     environment {
         CONFIG_FILE = 'sdp.yml'
-        TOMCAT_URL = 'http://your-tomcat-server-url:8080/manager' // Replace with your actual Tomcat manager URL
+        TOMCAT_URL = 'http://54.91.136.208:8080/' // Replace with your actual Tomcat manager URL
         //ARTIFACT_NAME = 'your-app-name' // Replace with the name of your .war file (without .war extension)
 
         }
@@ -47,7 +47,7 @@ pipeline {
                           sh """
                            curl -u $TOMCAT_USER:$TOMCAT_PASSWORD \
                            --upload-file target/*.jar \
-                           $TOMCAT_URL/
+                           $TOMCAT_URL
                              """
                            }
                          }
