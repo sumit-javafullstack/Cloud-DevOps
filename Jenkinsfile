@@ -15,6 +15,9 @@ pipeline {
         }
     environment {
         CONFIG_FILE = 'sdp.yml'
+        TOMCAT_URL = 'http://your-tomcat-server-url:8080/manager' // Replace with your actual Tomcat manager URL
+        //ARTIFACT_NAME = 'your-app-name' // Replace with the name of your .war file (without .war extension)
+
         }
       stages {
          stage('Initialize') {
@@ -37,5 +40,17 @@ pipeline {
                         }
                 }
              }
+             stage('Deploy to Tomcat') {
+                 steps {
+                      echo 'Deploying to Tomcat...'
+                          withCredentials([usernamePassword(credentialsId: 'tomcat', usernameVariable: 'TOMCAT_USER', passwordVariable: 'TOMCAT_PASSWORD')]) {
+                          sh """
+                           curl -u $TOMCAT_USER:$TOMCAT_PASSWORD \
+                           --upload-file target/*.jar \
+                           $TOMCAT_URL/
+                             """
+                           }
+                         }
+                     }
        }
  }
