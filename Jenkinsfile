@@ -51,6 +51,22 @@ pipeline {
                            $TOMCAT_URL
                              """
                            }
+                      }
+                 }
+             stage('Upload to Artifactory') {
+                         steps {
+                             script {
+                                 def server = Artifactory.server(ARTIFACTORY_SERVER)
+                                 def uploadSpec = """{
+                                     "files": [
+                                         {
+                                             "pattern": "target/*.jar",
+                                             "target": "${REPO}/path/in/repo/"
+                                         }
+                                     ]
+                                 }"""
+                                 server.upload(spec: uploadSpec, credentialsId: ARTIFACTORY_CREDENTIALS)
+                             }
                          }
                      }
        }
