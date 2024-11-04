@@ -8,7 +8,6 @@ pipeline {
         timestamps()//add timestamp in the log
         disableConcurrentBuilds()// at a time, only one build should run
 
-
     }
     tools {
                 jdk 'JDK-21' // Use JDK 17 installed on the agent(jenkins server)
