@@ -5,7 +5,7 @@ pipeline {
         retry(1) // Retry failed stages up to 3 times
         buildDiscarder(logRotator(numToKeepStr: '10')) // Keep the last 10 builds
         skipDefaultCheckout() // Skip the default checkout
-        timestamps()//add timestamp in the log
+        //timestamps()//add timestamp in the log
         disableConcurrentBuilds()// at a time, only one build should run
 
     }
@@ -19,7 +19,7 @@ pipeline {
         //ARTIFACT_NAME = 'your-app-name' // Replace with the name of your .war file (without .war extension)
 
         }
-    timestamps {
+
       stages {
          stage('Initialize') {
             steps {
@@ -54,5 +54,5 @@ pipeline {
                          }
                      }
        }
-       }
+
  }
