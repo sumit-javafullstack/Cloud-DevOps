@@ -19,6 +19,7 @@ pipeline {
         //ARTIFACT_NAME = 'your-app-name' // Replace with the name of your .war file (without .war extension)
 
         }
+    timestamps {
       stages {
          stage('Initialize') {
             steps {
@@ -52,5 +53,6 @@ pipeline {
                            }
                          }
                      }
+       }
        }
  }
