@@ -66,7 +66,7 @@ pipeline {
                                      "files": [
                                          {
                                              "pattern": "target/*.jar",
-                                             "target": "${env.REPO}/path/in/repo/"
+                                             "target": "${env.REPO}/"
                                          }
                                      ]
                                  }"""
