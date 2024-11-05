@@ -16,8 +16,6 @@ pipeline {
     environment {
         CONFIG_FILE = 'sdp.yml'
         TOMCAT_URL = 'http://54.91.136.208:8080/' // Replace with your actual Tomcat manager URL
-        //ARTIFACT_NAME = 'your-app-name' // Replace with the name of your .war file (without .war extension)
-
         }
 
       stages {
@@ -28,6 +26,9 @@ pipeline {
                     // Read the properties file
                     def props  = readYaml file: "${CONFIG_FILE}"
                     env.VERSION = props.version
+                    env.ARTIFACTORY_SERVER = props.artifactoryServer
+                    env.ARTIFACTORY_CREDENTIALS = props.artifactoryCredentialId
+                    env.REPO = props.artifactoryRepo
                     env.ON_SUCCESS_EMAIL = props.onSuccessEmail
                     env.ON_FAILURE_EMAIL = props.onFailureEmail
                     }
@@ -41,34 +42,35 @@ pipeline {
                         }
                 }
              }
-             stage('Deploy to Tomcat') {
-                 steps {
-                      echo 'Deploying to Tomcat...'
-                          withCredentials([usernamePassword(credentialsId: 'tomcat', usernameVariable: 'TOMCAT_USER', passwordVariable: 'TOMCAT_PASSWORD')]) {
-                          sh """
-                           curl -u $TOMCAT_USER:$TOMCAT_PASSWORD \
-                           --upload-file target/*.jar \
-                           $TOMCAT_URL
-                             """
-                           }
-                      }
-                 }
+// we will use pipeline to deploy to different environment
+//              stage('Deploy to Tomcat') {
+//                  steps {
+//                       echo 'Deploying to Tomcat...'
+//                           withCredentials([usernamePassword(credentialsId: 'tomcat', usernameVariable: 'TOMCAT_USER', passwordVariable: 'TOMCAT_PASSWORD')]) {
+//                           sh """
+//                            curl -u $TOMCAT_USER:$TOMCAT_PASSWORD \
+//                            --upload-file target/*.jar \
+//                            $TOMCAT_URL
+//                              """
+//                            }
+//                       }
+//                  }
 
 
 
              stage('Upload to Artifactory') {
                          steps {
                              script {
-                                 def server = Artifactory.server(ARTIFACTORY_SERVER)
+                                 def server = Artifactory.server(${env.ARTIFACTORY_SERVER})
                                  def uploadSpec = """{
                                      "files": [
                                          {
                                              "pattern": "target/*.jar",
-                                             "target": "${REPO}/path/in/repo/"
+                                             "target": "${env.REPO}/path/in/repo/"
                                          }
                                      ]
                                  }"""
-                                 server.upload(spec: uploadSpec, credentialsId: ARTIFACTORY_CREDENTIALS)
+                                 server.upload(spec: uploadSpec, credentialsId: ${env.ARTIFACTORY_CREDENTIALS})
                              }
                          }
                      }

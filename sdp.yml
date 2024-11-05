@@ -1,3 +1,6 @@
 version: 1.0.0-SNAPSHOT
+artifactoryServer: https://sumit06420.jfrog.io/artifactory
+artifactoryCredentialId: artifactory
+artifactoryRepo: results
 onFailureEmail: mesumitmandal@gmail.com
 onSuccessEmail: sumit06420@gmail.com
