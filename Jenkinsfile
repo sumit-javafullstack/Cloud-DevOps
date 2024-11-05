@@ -61,7 +61,7 @@ pipeline {
              stage('Upload to Artifactory') {
                          steps {
                              script {
-                                 def server = Artifactory.server(${env.ARTIFACTORY_SERVER})
+                                 def server = Artifactory.server("${env.ARTIFACTORY_SERVER}")
                                  def uploadSpec = """{
                                      "files": [
                                          {
@@ -70,7 +70,7 @@ pipeline {
                                          }
                                      ]
                                  }"""
-                                 server.upload(spec: uploadSpec, credentialsId: ${env.ARTIFACTORY_CREDENTIALS})
+                                 server.upload(spec: uploadSpec, credentialsId: "${env.ARTIFACTORY_CREDENTIALS}")
                              }
                          }
                      }
