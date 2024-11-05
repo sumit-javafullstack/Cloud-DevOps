@@ -62,7 +62,7 @@ pipeline {
                          steps {
                              script {
                              //"${env.ARTIFACTORY_SERVER}"
-                                 def artifactoryServer = Artifactory.newServer url: 'https://sumit06420.jfrog.io', credentialsId: 'artifactory'
+                                 def artifactoryServer = Artifactory.newServer url: 'https://sumit06420.jfrog.io/artifactory', credentialsId: 'artifactory'
                                  def uploadSpec = """{
                                      "files": [
                                          {
