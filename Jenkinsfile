@@ -61,7 +61,8 @@ pipeline {
              stage('Upload to Artifactory') {
                          steps {
                              script {
-                                 def server = Artifactory.server("${env.ARTIFACTORY_SERVER}")
+                             //"${env.ARTIFACTORY_SERVER}"
+                                 def server = Artifactory.server(https://sumit06420.jfrog.io)
                                  def uploadSpec = """{
                                      "files": [
                                          {
