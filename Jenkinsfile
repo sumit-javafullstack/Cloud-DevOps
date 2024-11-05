@@ -58,23 +58,23 @@ pipeline {
 
 
 
-//              stage('Upload to Artifactory') {
-//                          steps {
-//                              script {
-//                              //"${env.ARTIFACTORY_SERVER}"
-//                                  def artifactoryServer = Artifactory.newServer url: 'https://sumit06420.jfrog.io/artifactory', credentialsId: 'artifactory'
-//                                  def uploadSpec = """{
-//                                      "files": [
-//                                          {
-//                                              "pattern": "target/*.jar",
-//                                              "target": "${env.REPO}/"
-//                                          }
-//                                      ]
-//                                  }"""
-//                                  artifactoryServer.upload spec: uploadSpec
-//                              }
-//                          }
-//                      }
+             stage('Upload to Artifactory') {
+                         steps {
+                             script {
+                             //"${env.ARTIFACTORY_SERVER}"
+                                 def artifactoryServer = Artifactory.newServer url: 'https://sumit06420.jfrog.io/artifactory', credentialsId: 'artifactory'
+                                 def uploadSpec = """{
+                                     "files": [
+                                         {
+                                             "pattern": "target/*.jar",
+                                             "target": "${env.REPO}/"
+                                         }
+                                     ]
+                                 }"""
+                                 artifactoryServer.upload spec: uploadSpec
+                             }
+                         }
+                     }
        }
 
  }
