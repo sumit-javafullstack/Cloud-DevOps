@@ -10,7 +10,7 @@ pipeline {
 
     }
     tools {
-                jdk 'JDK-21' // Use JDK 17 installed on the agent(jenkins server)
+                jdk 'JDK 1.17' // Use JDK 17 installed on the agent(jenkins server)
                 maven 'M2_HOME' // Use gradle gitinstalled on the agent(jenkins server)
         }
     environment {
